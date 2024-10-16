@@ -11,7 +11,7 @@ const Producto = (product) => {
       <div className="contenido">
         <h2 className="titulo">{product.product.title}</h2>
 
-        <p>{product.product.price}</p>
+        <h3>{product.product.price}</h3>
       </div>
     </div>
   );

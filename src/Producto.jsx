@@ -1,6 +1,5 @@
 import "./Product.css";
 const Producto = (product) => {
-  console.log(product);
   return (
     <div className="card">
       <img

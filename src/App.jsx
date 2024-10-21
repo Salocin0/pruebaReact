@@ -1,49 +1,44 @@
-import { useEffect, useState } from 'react'
-import BotonCategoria from './BotonCategoria'
-import './App.css'
-import Producto from './Producto'
+// src/App.jsx
+import React, { useEffect, useState } from 'react';
+import Menu from './components/Menu';
+import ProductCard from './components/ProductCard';
+import ProductCardWithSale from './components/ProductCardWithSale';
 
-function App() {
-  const [products, setProducts] = useState([])
-  const [categoria, setCategoria] = useState("Todas")
-  const [isLoading, setLoading] = useState(false)
+const App = () => {
+  const [categories, setCategories] = useState([]);  
+  const [products, setProducts] = useState([]);      
 
-  const handleCategoria= (categoria)=>{
-    setCategoria(categoria)
-  }
+  // Carga categorías
+  useEffect(() => {
+    const fetchCategories = async () => {
+      console.log("cargando categorías");
+      const response = await fetch('https://fakestoreapi.com/products/categories');
+      const data = await response.json();
+      setCategories(data);
+    };
+    fetchCategories();
+  }, []);
 
-  useEffect(()=>{
-    console.log("useEffect");
-    let url = ""
-    if(categoria==="Todas"){
-      url= "https://fakestoreapi.com/products/"
-    }else{
-      url= `https://fakestoreapi.com/products/category/${categoria}`
-    }
+  // Carga los productos de la categoría seleccionada
+  const handleCategorySelect = async (category) => {
+    console.log("cargarndo productos");
+    const response = await fetch(`https://fakestoreapi.com/products/category/${category}`);
+    const data = await response.json();
+    setProducts(data);
+  };
 
-    async function fetchBack() {
-      const response = await fetch(url)
-      const data= await response.json()
-      setProducts(data)
-    }
-    fetchBack()
-  },[categoria])
-
-  if(isLoading){
-    return <h1>Cargando...</h1>
-  }else{
-    return (
-      <div>
-        <h2>Productos</h2>
-        <h3>filtros</h3>
-        <BotonCategoria text={"electronica"} valor={"electronics"} functionPadre={handleCategoria}></BotonCategoria>
-        <BotonCategoria text={"joyeria"} valor={"jewelery"} functionPadre={handleCategoria}></BotonCategoria>
-        <BotonCategoria text={"ropa hombre"} valor={"men's clothing"} functionPadre={handleCategoria}></BotonCategoria>
-        <BotonCategoria text={"ropa mujer"} valor={"women's clothing"} functionPadre={handleCategoria}></BotonCategoria>
-        {products.map((product)=>(<Producto key={product.id} product={product}/>))}
+  return (
+    <div>
+      <h1>Tienda de Productos FakeStore</h1>
+      <Menu categories={categories} onCategorySelect={handleCategorySelect} />
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+        {products.map(product => (
+          //<ProductCard key={product.id} product={product} />
+          <ProductCardWithSale key={product.id} product={product} />
+        ))}
       </div>
-    )
-  }
-}
+    </div>
+  );
+};
 
-export default App
+export default App;

@@ -1,43 +1,20 @@
-import { useEffect, useState } from 'react'
-import BotonCategoria from './BotonCategoria'
-import './App.css'
-import Producto from './Producto'
+import "./App.css";
+import Productos from "./Productos";
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import Home from "./Home";
+import DetalleProducto from "./DetalleProducto";
 
 function App() {
-  const [products, setProducts] = useState([])
-  const [categoria, setCategoria] = useState("Todas")
-
-  const handleCategoria= (categoria)=>{
-    setCategoria(categoria)
-  }
-
-  useEffect(()=>{
-    let url = ""
-    if(categoria==="Todas"){
-      url= "https://fakestoreapi.com/products/"
-    }else{
-      url= `https://fakestoreapi.com/products/category/${categoria}`
-    }
-
-    async function fetchBack() {
-      const response = await fetch(url)
-      const data= await response.json()
-      setProducts(data)
-    }
-    fetchBack()
-  },[categoria])
-
-  return (
-    <div>
-      <h2>Productos</h2>
-      <h3>filtros</h3>
-      <BotonCategoria text={"electronica"} valor={"electronics"} functionPadre={handleCategoria}></BotonCategoria>
-      <BotonCategoria text={"joyeria"} valor={"jewelery"} functionPadre={handleCategoria}></BotonCategoria>
-      <BotonCategoria text={"ropa hombre"} valor={"men's clothing"} functionPadre={handleCategoria}></BotonCategoria>
-      <BotonCategoria text={"ropa mujer"} valor={"women's clothing"} functionPadre={handleCategoria}></BotonCategoria>
-      {products.map((product)=>(<Producto key={product.id} product={product}/>))}
-    </div>
+  //return <Productos />;
+  return(
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home/>}></Route>
+      <Route path="/Productos" element={<Productos/>}></Route>
+      <Route path="/Productos/:id" element={<DetalleProducto/>}></Route>
+    </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;

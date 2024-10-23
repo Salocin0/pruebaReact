@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import BotonCategoria from './BotonCategoria'
-import './App.css'
+import BotonCategoria from '../../componets/BotonCategoria'
+import '../../App.css'
 import Producto from './Producto'
 
 function Productos() {

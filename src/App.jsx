@@ -1,8 +1,8 @@
 import "./App.css";
-import Productos from "./Productos";
+import Productos from "./pages/Productos/Productos";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Home from "./Home";
-import DetalleProducto from "./DetalleProducto";
+import DetalleProducto from "./pages/Productos/DetalleProducto";
 
 function App() {
   //return <Productos />;

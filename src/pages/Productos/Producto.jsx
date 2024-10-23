@@ -1,4 +1,4 @@
-import "./Product.css";
+import "../../Product.css";
 import { useNavigate } from "react-router-dom";
 const Producto = (product) => {
   console.log(product);

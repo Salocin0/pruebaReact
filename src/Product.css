@@ -1,0 +1,23 @@
+.card{
+    background-color: rgb(56, 56, 56);
+    border-radius: 20px;
+    margin: 20px;
+    display: flex;
+    width: 600px;
+}
+
+.img{
+    height: 300px;
+    border-radius: 20px;
+}
+
+.contenido{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.titulo{
+    padding: 0px 50px;
+}
